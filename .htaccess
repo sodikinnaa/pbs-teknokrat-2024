@@ -1,0 +1,1 @@
+RewriteRule ^(.*)$ HTTP://proxyapp1/$1 [P]
