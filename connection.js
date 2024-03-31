@@ -1,5 +1,4 @@
 const mysql = require("mysql");
-require("dotenv").config();
 
 const db = mysql.createConnection({
   host: "sql6.freesqldatabase.com",
