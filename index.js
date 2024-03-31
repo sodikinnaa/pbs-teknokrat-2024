@@ -9,7 +9,7 @@ const port = 3000;
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  response(200, "welcome to api", res);
+  response(200, "welcome to api", "Selamat datang di api service", res);
 });
 
 app.get("/beasiswa", (req, res) => {
