@@ -10,6 +10,11 @@ const port = 3000
 
 app.use(bodyParser.json())
 
+app.get('/', (req, res)=>{
+    response(200,'welcome to api',res)
+}){
+
+}
 app.get('/beasiswa', (req, res) => {
     const sql = "Select * from daftar_beasiswa"
     db.query(sql, (err, result) => {
