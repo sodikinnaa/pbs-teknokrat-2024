@@ -12,30 +12,30 @@ app.get("/", (req, res) => {
   response(200, "welcome to api", "Selamat datang di api service", res);
 });
 
-app.get("/beasiswa", (req, res) => {
-  const sql = "Select * from daftar_beasiswa";
+app.get("/mahasiswa", (req, res) => {
+  const sql = "Select * from tb_mahasiswa";
   db.query(sql, (err, result) => {
     if (err) throw err;
-    response(200, result, "get all data", res);
+    response(200, result, "get all data mahasiswa", res);
   });
 });
 
-app.get("/beasiswa/:url", (req, res) => {
-  url_data = req.params.url;
-  const sql = `Select * from daftar_beasiswa where url='${url_data}'`;
-  db.query(sql, (error, result) => {
+app.get("/mahasiswa/:npm", (req, res) => {
+  url_data = req.params.npm;
+  const sql = `Select * from tb_mahasiswa where npm_mhs='${url_data}'`;
+  db.query(sql, (err, result) => {
     if (err) throw err;
-    response(200, result, "get all data", res);
+    response(200, result, "get data mahasiswa by npm", res);
   });
 });
 
-app.post("/beasiswa", (req, res) => {
-  const { nama, url, kategori } = req.body;
+app.post("/mahasiswa", (req, res) => {
+  const { nama, npm, alamat } = req.body;
 
-  const sql = `insert into daftar_beasiswa (nama,url,kategori) values ('${nama}','${url}','${kategori}');`;
+  const sql = `insert into tb_mahasiswa (nama_mhs,npm_mhs,alamat_mhs) values ('${nama}','${npm}','${alamat}');`;
 
   db.query(sql, (err, fields) => {
-    if (err) response(500, "invalid", `${url} sudah di tambahkan`, res);
+    if (err) response(500, "invalid", err, res);
     if (fields?.affectedRows) {
       const data = {
         isSuccess: fields.affectedRows,
@@ -46,9 +46,9 @@ app.post("/beasiswa", (req, res) => {
   });
 });
 
-app.put("/beasiswa", (req, res) => {
-  const { url, nama, kategori } = req.body;
-  const sql = `UPDATE daftar_beasiswa SET nama='${nama}', url='${url}', kategori='${kategori}' WHERE url='${url}'`;
+app.put("/mahasiswa", (req, res) => {
+  const { nama, npm, alamat } = req.body;
+  const sql = `UPDATE tb_mahasiswa SET nama_mhs='${nama}', npm_mhs='${npm}', alamat_mhs='${alamat}' WHERE npm_mhs='${npm}'`;
 
   db.query(sql, (err, fields) => {
     if (err) response(500, "invalid", `error`, res);
@@ -65,9 +65,9 @@ app.put("/beasiswa", (req, res) => {
   });
 });
 
-app.delete("/beasiswa", (req, res) => {
-  const { url } = req.body;
-  const sql = `DELETE FROM daftar_beasiswa where url ='${url}'`;
+app.delete("/mahasiswa", (req, res) => {
+  const { npm } = req.body;
+  const sql = `DELETE FROM tb_mahasiswa where npm_mhs ='${npm}'`;
   db.query(sql, (err, fields) => {
     if (err) response(500, "invalid", "error", res);
     if (fields?.affectedRows) {
